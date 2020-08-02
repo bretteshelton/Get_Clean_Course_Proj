@@ -26,27 +26,54 @@ Here are the data for the project:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
 
-'test/X_test.txt': Test set.
 
+***See the CodeBook.md file accompanying this project for descriptions of
+the names of the datafiles at each step of data merging and tidying
+---------------------------------------------------------------------------
+1. Merging the data
+
+Follows the steps of downloading, unzipping, and reading the files
+using read.table for each. Specifically it reads the files X_test, y_test
+for each of the training and test sets. It uses subject_test to get the 
+participant IDs, the features file to get the variables (column names),
+and finally the activity_labels file to identify which of the 6 activites
+are associated with each row of data.
 
 ---------------------------------------------------------------------------
-Merging the data
-
-
----------------------------------------------------------------------------
-Extracting only the measurements on the mean and std deviation for
+2. Extracting only the measurements on the mean and std deviation for
 each measurement.
 
 
----------------------------------------------------------------------------
-Using descriptive activity names to name the activities in the data set
-
-
----------------------------------------------------------------------------
-Appropriately Labeling the data set with descriptive variable names
-
-
+Follows the steps of searching for "mean" and "std" for the different 
+variables, extracts those variable columns, and adds them to a new dataset
+that also retains the participant ID and activity columns. I used grep to
+search for and extract the data from the column names.
 
 ---------------------------------------------------------------------------
-Creating a second, tidy data set with average of each variable for each
+3. Using descriptive activity names to name the activities in the data set
+
+Follows the steps to substitute the activity name for its corresponding
+numerical code, that is, "walking" was coded as "1", and so on for each
+of the 6 activites.
+
+---------------------------------------------------------------------------
+4. Appropriately Labeling the data set with descriptive variable names
+
+Follows the steps to substitute out inappropriate characters in the variable
+names. I substituted the "t" and "f" for time and frequency, I took out dashes and replaced them with underscores, and took out the meaningless "()" parenthesis in the variable names. Starting with the features.txt file, the variables names didn't need that much tweaking to be both meaningful and follow naming convention, so just a few steps were required.
+
+
+---------------------------------------------------------------------------
+5. Creating a second, tidy data set with average of each variable for each
 activity and each subject
+
+Here I used the arrange, group_by and summarize_all (by mean) to complete the new dataset.
+I grouped it by participant ID and activity as per the directions. Then used summary_all
+to capture all the variables and used the "mean" as the summary function.
+I used write.table to write the final, tidy data set to the file "mean_std_data_final.txt"
+
+Because we use write.table to create the output data file, "mean_std_data_final.txt", use the following code in R to read in and view the final table:
+
+data <- read.table("mean_std_data_final.txt", header = TRUE)
+View(data)
+
