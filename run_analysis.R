@@ -12,7 +12,7 @@
 #         set with the average of each variable for each activity and each 
 #         subject.
 
-# Initial librarys
+# Initial libraries
 library(dplyr); 
 
 #----------------------------------------------------------------------------
