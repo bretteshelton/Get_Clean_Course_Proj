@@ -125,7 +125,7 @@ mean_std_data <- group_by(mean_std_data, participant_id, training_label)
 mean_std_data_final <- summarize_all(mean_std_data, mean)
 
 
-write.table(mean_std_data_final,"mean_std_data_final.txt")
+write.table(mean_std_data_final,"mean_std_data_final.txt", row.names = FALSE)
 
 
 #to view the output file in R, use the following:
